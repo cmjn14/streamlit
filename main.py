@@ -42,8 +42,7 @@ st.write("Modified in github.dev frame within Obsidian.")
 st.write("Test with openalex API")
 
 institution = requests.get(
-    'https://api.openalex.org/institutions?filter=display_name.search:university of florida'
-).json()['results'][0]
+    'https://api.openalex.org/institutions?filter=display_name.search:university of florida').json()['results'][0]
 
 print(institution['display_name'])
 print(institution['id'])
