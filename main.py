@@ -48,6 +48,6 @@ st.write(institution['display_name'])
 st.write(institution['id'])
 
 searchedterm = st.text_input("Search", value="")
-searchresults = requests.get('https://api.openalex.org/autocomplete/institutions?q=biolo')
+searchresults = requests.get('https://api.openalex.org/autocomplete/institutions?q=biolo').json()['results']
 for result in searchresults:
     st.write(result['display_name'])
