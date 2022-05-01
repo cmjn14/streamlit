@@ -46,3 +46,8 @@ institution = requests.get(
 
 st.write(institution['display_name'])
 st.write(institution['id'])
+
+searchedterm = st.text_input("Search", value="")
+searchresults = request.get('https://api.openalex.org/autocomplete/institutions?q=' + searchedterm)
+for result in searchresults:
+    st.write(result['display_name'])
