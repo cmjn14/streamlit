@@ -35,3 +35,5 @@ map_data = pd.DataFrame(
     columns=['lat', 'lon'])
 
 st.map(map_data)
+
+st.write("Modified in github.dev frame within Obsidian.")
