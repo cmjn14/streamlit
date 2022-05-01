@@ -44,5 +44,5 @@ st.write("Test with openalex API")
 institution = requests.get(
     'https://api.openalex.org/institutions?filter=display_name.search:university of florida').json()['results'][0]
 
-print(institution['display_name'])
-print(institution['id'])
+st.write(institution['display_name'])
+st.write(institution['id'])
