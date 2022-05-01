@@ -47,7 +47,7 @@ institution = requests.get(
 st.write(institution['display_name'])
 st.write(institution['id'])
 
-searchedterm = st.text_input("Search", value="")
-searchresults = requests.get('https://api.openalex.org/autocomplete/institutions?q=biolo').json()['results']
+searchedterm = st.text_input("Search concepts:", value="")
+searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm).json()['results']
 for result in searchresults:
     st.write(result['display_name'])
