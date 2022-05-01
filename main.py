@@ -12,6 +12,8 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
+import requests as requests
+
 st.title('My first app')
 
 st.write("Here's our first attempt at using data to create a table:")
@@ -37,3 +39,11 @@ map_data = pd.DataFrame(
 st.map(map_data)
 
 st.write("Modified in github.dev frame within Obsidian.")
+st.write("Test with openalex API")
+
+institution = requests.get(
+    'https://api.openalex.org/institutions?filter=display_name.search:university of florida'
+).json()['results'][0]
+
+print(institution['display_name'])
+print(institution['id'])
