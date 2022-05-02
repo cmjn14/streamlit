@@ -65,4 +65,4 @@ def request_works(concept_name):
 searched_concept = st.text_input("Search concepts:", value="")
 if len(searched_concept) != 0:
     request_concepts(searched_concept)
-    request_works("Cellular network")
+    request_works(searched_concept)
