@@ -55,6 +55,14 @@ def request_concepts(searchedterm):
             st.caption(result['hint'])
     return True
 
+def request_works(concept_name):
+    if len(concept_name) != 0:
+        search_works = requests.get('https://api.openalex.org/works?search=' + concept_name.replace(" ","%20")).json()['results']
+        for work in search_works:
+            st.write(result['display_name'])
+    return True
+
 searched_concept = st.text_input("Search concepts:", value="")
 if len(searched_concept) != 0:
     request_concepts(searched_concept)
+    request_works("Cellular network")
