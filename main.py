@@ -63,7 +63,7 @@ def request_works(concept_name):
             st.caption(work['authorships'][0]['author']['display_name'])
             st.caption(work['doi'])
             st.caption(work['open_access']['is_oa'])
-            st.caption(work['cited_by_count'] + " citations")
+            st.caption(str(work['cited_by_count']) + " citations")
             
     return True
 
