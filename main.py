@@ -57,7 +57,7 @@ def request_concepts(searchedterm):
 
 def request_works(concept_name):
     if len(concept_name) != 0:
-        search_works = requests.get('https://api.openalex.org/works?search=' + concept_name.replace(" ","%20") + '&filter=is_paratext:true').json()['results']
+        search_works = requests.get('https://api.openalex.org/works?search=' + concept_name.replace(" ","%20") + '&filter=is_paratext:false').json()['results']
         for work in search_works:
             st.write(work['display_name'])
     return True
