@@ -53,7 +53,7 @@ def update_results():
         for result in searchresults:
             st.write(result['display_name'])
             st.caption(result['hint'])
-    return true
+    return True
 
 searchedterm = st.text_input("Search concepts:", value="", on_change=update_results)
 # if len(searchedterm) != 0:
