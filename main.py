@@ -47,7 +47,7 @@ institution = requests.get(
 st.write(institution['display_name'])
 st.write(institution['id'])
 
-def update_results()
+def update_results():
     if len(searchedterm) != 0:
         searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm).json()['results']
         for result in searchresults:
