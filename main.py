@@ -47,9 +47,17 @@ institution = requests.get(
 st.write(institution['display_name'])
 st.write(institution['id'])
 
-searchedterm = st.text_input("Search concepts:", value="")
-if len(searchedterm) != 0:
-    searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm).json()['results']
-    for result in searchresults:
-        st.write(result['display_name'])
-        st.caption(result['hint'])
+def update_results()
+    if len(searchedterm) != 0:
+        searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm).json()['results']
+        for result in searchresults:
+            st.write(result['display_name'])
+            st.caption(result['hint'])
+    return true
+
+searchedterm = st.text_input("Search concepts:", value="", on_change=update_results)
+# if len(searchedterm) != 0:
+#    searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm).json()['results']
+#    for result in searchresults:
+#        st.write(result['display_name'])
+#        st.caption(result['hint'])
