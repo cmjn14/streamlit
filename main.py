@@ -55,8 +55,9 @@ def update_results():
             st.caption(result['hint'])
     return True
 
-searchedterm = st.text_input("Search concepts:", value="", on_change=update_results)
-# if len(searchedterm) != 0:
+searchedterm = st.text_input("Search concepts:", value="")
+if len(searchedterm) != 0:
+    update_results()
 #    searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm).json()['results']
 #    for result in searchresults:
 #        st.write(result['display_name'])
