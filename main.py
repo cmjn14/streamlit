@@ -58,6 +58,11 @@ def request_works(concept_name):
             st.markdown("---")
             st.markdown("##### " + work['display_name'])
             st.caption("**" + (work['publication_date'] or work['publication_year']) + "** _in_ **" + work['host_venue']['display_name'] + "** (" + str(work['host_venue']['publisher'] or "") + ")" + " " + (work['host_venue']['license'] or ""))
+            if work['open_access']['is_oa']:
+                oa_info = "**Open access**"
+                if len(work['host_venue']['license']) >0:
+                    oa_info += " (" + work['host_venue']['license'] +")"
+                st.markdown(oa_info)
             authors_list = []
             for authorship in work['authorships']:
                 author = authorship['author']
@@ -69,7 +74,6 @@ def request_works(concept_name):
                     authors_list.append(author_display_name)
             st.markdown(", ".join(authors_list))
             st.caption(urllib.parse.quote(work['doi'], safe=':/'))
-            st.markdown(work['open_access']['is_oa'])
             st.caption(str(work['cited_by_count']) + " citations")        
     return True
 
