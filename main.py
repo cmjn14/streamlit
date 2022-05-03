@@ -64,7 +64,7 @@ def request_works(concept_name):
                 author = authorship['author']
                 author_display_name = author['display_name']
                 if len(author['orcid']) > 0:
-                    st.markdown("[" + author_display_name + "](" + author['orcid'] +")"
+                    st.markdown("[" + author_display_name + "](" + author['orcid'] +")")
                 else:
                     st.markdown(author_display_name)
             st.markdown(work['doi'])
