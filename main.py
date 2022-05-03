@@ -73,7 +73,6 @@ def request_works(concept_name):
                     authors_list.append(author_display_name)
             st.markdown(", ".join(authors_list))
             st.markdown(urllib.parse.quote(work['doi'], safe=':/'))
-            st.markdown('<a href="' + urllib.parse.quote(work['doi'], safe=':/') + '">' + work['doi'] + '</a>')
             st.caption(work['open_access']['is_oa'])
             st.caption(str(work['cited_by_count']) + " citations")        
     return True
