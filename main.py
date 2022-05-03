@@ -56,7 +56,7 @@ def request_works(concept_name):
         search_works = requests.get('https://api.openalex.org/works?search=' + concept_name.replace(" ","%20") + '&filter=is_paratext:false').json()['results']
         for work in search_works:
             st.markdown("---")
-            st.markdown("#### " + work['display_name'])
+            st.markdown("##### " + work['display_name'])
             st.caption(work['publication_date'] or work['publication_year'])
             authors_list = []
             for authorship in work['authorships']:
