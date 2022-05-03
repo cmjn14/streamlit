@@ -61,7 +61,7 @@ def request_works(concept_name):
         search_works = requests.get('https://api.openalex.org/works?search=' + concept_name.replace(" ","%20") + '&filter=is_paratext:false').json()['results']
         for work in search_works:
             st.markdown("---")
-            st.markdown("**" + work['display_name'] + "**")
+            st.subheader(work['display_name'])
             authors_list = []
             for authorship in work['authorships']:
                 author = authorship['author']
@@ -72,6 +72,7 @@ def request_works(concept_name):
                 else:
                     authors_list.append(author_display_name)
             st.markdown(", ".join(authors_list))
+            st.caption(work['host_venue']['display_name'] + "(" + str(work['host_venue']['publisher'] or "") + ")")
             st.markdown(urllib.parse.quote(work['doi'], safe=':/'))
             st.markdown(work['open_access']['is_oa'])
             st.caption(str(work['cited_by_count']) + " citations")        
