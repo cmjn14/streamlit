@@ -42,11 +42,6 @@ st.map(map_data)
 st.write("Modified in github.dev frame within Obsidian.")
 st.write("Test with openalex API")
 
-institution = requests.get(
-    'https://api.openalex.org/institutions?filter=display_name.search:university of florida').json()['results'][0]
-
-st.write(institution['display_name'])
-st.write(institution['id'])
 
 def request_concepts(searchedterm):
     if len(searchedterm) != 0:
@@ -63,6 +58,7 @@ def request_works(concept_name):
             st.markdown("---")
             st.subheader(work['display_name'])
             st.caption(work['publication_date'] or work['publication_year'])
+            st.caption(work['hint'])
             authors_list = []
             for authorship in work['authorships']:
                 author = authorship['author']
