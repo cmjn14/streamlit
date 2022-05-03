@@ -74,7 +74,10 @@ def request_works(concept_name):
                     authors_list.append(author_display_name)
             st.markdown(", ".join(authors_list))
             st.caption(urllib.parse.quote(work['doi'], safe=':/'))
-            st.caption(str(work['cited_by_count']) + " citations")        
+            st.caption(str(work['cited_by_count']) + " citations")
+            for work_concept in work['concepts']:
+                st.caption(work_concept['display_name'])
+                st.progress(work_concept['score'])      
     return True
 
 searched_concept = st.text_input("Search concepts:", value="")
