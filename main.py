@@ -63,9 +63,9 @@ def request_works(concept_name):
             for authorship in work['authorships']:
                 author = authorship['author']
                 author_display_name = author['display_name']
-                if len(author['orcid']) > 0:
+                try:
                     st.markdown("[" + author_display_name + "](" + author['orcid'] +")")
-                else:
+                except RuntimeError:
                     st.markdown(author_display_name)
             st.markdown(work['doi'])
             st.caption(work['open_access']['is_oa'])
