@@ -57,7 +57,7 @@ def request_works(concept_name):
         for work in search_works:
             st.markdown("---")
             st.markdown("##### " + work['display_name'])
-            st.caption("**" + (work['publication_date'] or work['publication_year']) + "** _in_ **" + work['host_venue']['display_name'] + "** (" + str(work['host_venue']['publisher'] or "") + ")")
+            st.caption("**" + (work['publication_date'] or work['publication_year'] or "") + "** _in_ **" + (work['host_venue']['display_name'] or "") + "** (" + str(work['host_venue']['publisher'] or "") + ")")
             if work['open_access']['is_oa']:
                 oa_info = "**Open access**"
                 if len(work['host_venue']['license'] or "") != 0:
