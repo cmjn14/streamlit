@@ -60,7 +60,7 @@ def request_works(concept_name):
         search_works = requests.get('https://api.openalex.org/works?search=' + concept_name.replace(" ","%20") + '&filter=is_paratext:false').json()['results']
         for work in search_works:
             st.write(work['display_name'])
-            st.caption(work['authorships'][0]['author']['display_name'])
+            st.markdown("[" + work['authorships'][0]['author']['display_name'] + "](" + work['authorships'][0]['author']['orcid'] + ")")
             st.caption(work['doi'])
             st.caption(work['open_access']['is_oa'])
             st.caption(str(work['cited_by_count']) + " citations")        
