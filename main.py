@@ -71,8 +71,8 @@ def request_works(concept_name):
                 else:
                     authors_list.append(author_display_name)
             st.markdown(", ".join(authors_list))
-            st.markdown(work['doi'], True)
-            st.write('<a href="' + work['doi'] + '">' + work['doi'] + '</a>')
+            st.markdown(work['doi'], unsafe_allow_html=True)
+            st.markdown('<a href="' + work['doi'] + '">' + work['doi'] + '</a>', unsafe_allow_html=True)
             st.caption(work['open_access']['is_oa'])
             st.caption(str(work['cited_by_count']) + " citations")        
     return True
