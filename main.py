@@ -58,7 +58,7 @@ def request_works(concept_name):
             st.markdown("---")
             st.subheader(work['display_name'])
             st.caption(work['publication_date'] or work['publication_year'])
-            st.caption(work['hint'])
+            st.caption(work['hint'] or "")
             authors_list = []
             for authorship in work['authorships']:
                 author = authorship['author']
