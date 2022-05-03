@@ -11,6 +11,7 @@ import streamlit as st
 # working with sample data.
 import numpy as np
 import pandas as pd
+import urllib as urllib
 
 import requests as requests
 
@@ -71,7 +72,7 @@ def request_works(concept_name):
                 else:
                     authors_list.append(author_display_name)
             st.markdown(", ".join(authors_list))
-            st.markdown(work['doi'], unsafe_allow_html=True)
+            st.markdown(urllib.quote(work['doi']))
             st.markdown('<a href="' + work['doi'] + '">' + work['doi'] + '</a>', unsafe_allow_html=True)
             st.caption(work['open_access']['is_oa'])
             st.caption(str(work['cited_by_count']) + " citations")        
