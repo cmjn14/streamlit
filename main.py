@@ -58,7 +58,7 @@ def request_works(concept_name):
             st.markdown("---")
             st.markdown(f"##### {work['display_name']}")
             st.caption("**" + (work['publication_date'] or work['publication_year'] or "** **") + "** _in_ **" + (work['host_venue']['display_name'] or "") + "** (" + str(work['host_venue']['publisher'] or "") + ")")
-            st.caption(f"**{work['publication_date']}** in ***{work['host_venue']['display_name']}*** ({work['host_venue']['publisher']})".replace("**in ***None*** (","** ("))
+            st.caption(f"**{work['publication_date']}** in ***{work['host_venue']['display_name']}*** ({work['host_venue']['publisher']})".replace(" in <em><strong>None</strong></em>",""))
             if work['open_access']['is_oa']:
                 oa_info = "**Open access**"
                 if len(work['host_venue']['license'] or "") != 0:
