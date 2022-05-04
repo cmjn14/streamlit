@@ -50,7 +50,7 @@ def request_concepts(searchedterm):
         st.write('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm + polite)
         searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm + polite).json()['results']
         for result in searchresults:
-            st.info(result['display_name'])
+            st.markdown(st.info(result['display_name']))
             st.info(st.caption(result['hint']))
     return True
 
