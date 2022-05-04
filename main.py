@@ -72,7 +72,6 @@ def request_works(concept_name):
             oa_info += " (" + work['host_venue']['license'].upper() +")" if (len(work['host_venue']['license'] or "") != 0) else ""
             st.markdown(oa_info)
             ":large_green_square:"
-            :large_green_square:
             st.markdown(":large_green_square:")
 
             st.caption(urllib.parse.quote(work['doi'], safe=':/'))
