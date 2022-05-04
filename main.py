@@ -49,12 +49,12 @@ def request_concepts(searchedterm):
     if len(searchedterm) != 0:
         searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm + polite).json()['results']
         for result in searchresults:
-            st.markdown(f"{result['display_name']}<br/><small>{result['hint']}</small>", allow_unsafe_html=True)
+            st.info(result['display_name'] + "<br/><small>" + result['hint'] + "</small>", allow_unsafe_html=True)
     return True
 
 def request_works(concept_name):
     if len(concept_name) != 0:
-        search_works = requests.get('https://api.openalex.org/works?search=' + concept_name.replace(" ","%20") + '&filter=is_paratext:false').json()['results']
+        search_works = requests.get('https://api.openalex.org/works?search=' + concept_name.replace(" ","%20") + '&filter=is_paratext:false' + polite).json()['results']
         for work in search_works:
             st.markdown("---")
             st.markdown(f"##### {work['display_name']}")
