@@ -59,7 +59,7 @@ def request_works(concept_name):
             st.markdown(f"##### {work['display_name']}")
             st.caption(f"Published on **{work['publication_date']}** in ***{work['host_venue']['display_name']}*** ({work['host_venue']['publisher']})".replace("in ***None***",""))
             if work['open_access']['is_oa']:
-                oa_info = "#Open-access"
+                oa_info = ":unlock:"
                 if len(work['host_venue']['license'] or "") != 0:
                     oa_info += " (" + work['host_venue']['license'].upper() +")"
                 st.markdown(oa_info)
