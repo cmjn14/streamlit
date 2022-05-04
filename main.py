@@ -66,7 +66,7 @@ def request_works(concept_name):
             authors_list = []
             for authorship in work['authorships']:
                 author = authorship['author']
-                author_display_name += author['display_name'] if author['orcid'] == None else (f"[{author['display_name']}]({author['orcid']})")
+                author_display_name = author['display_name'] if author['orcid'] == None else (f"[{author['display_name']}]({author['orcid']})")
                 authors_list.append(author_display_name)
             st.markdown(", ".join(authors_list))
 
