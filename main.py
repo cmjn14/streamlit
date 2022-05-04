@@ -43,13 +43,13 @@ st.write("Modified in github.dev frame within Obsidian.")
 st.write("Test with openalex API")
 
 
-polite = "?mailto:cedric.lopez@free.fr"
+polite = "&mailto:cedric.lopez@free.fr"
 
 def request_concepts(searchedterm):
     if len(searchedterm) != 0:
         searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm + polite).json()['results']
         for result in searchresults:
-            st.info(result['display_name'] + "<br/><small>" + result['hint'] + "</small>", allow_unsafe_html=True)
+            st.markdown(result['display_name'] + "<br/><small>" + result['hint'] + "</small>", allow_unsafe_html=True)
     return True
 
 def request_works(concept_name):
