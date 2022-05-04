@@ -57,11 +57,6 @@ def request_works(concept_name):
         for work in search_works:
             st.markdown("---")
             st.markdown(f"##### {work['display_name']}")
-            st.caption(f"Published on **{work['publication_date']}** in ***{work['host_venue']['display_name']}*** ({work['host_venue']['publisher']})".replace("in ***None***",""))
-
-            oa_info = "**Open access**" if work['open_access']['is_oa'] == True else ""
-            oa_info += " (" + work['host_venue']['license'].upper() +")" if (len(work['host_venue']['license'] or "") != 0) else ""
-            oa_info
 
             authors_list = []
             for authorship in work['authorships']:
@@ -69,6 +64,12 @@ def request_works(concept_name):
                 author_display_name = author['display_name'] if author['orcid'] == None else (f"[{author['display_name']}]({author['orcid']})")
                 authors_list.append(author_display_name)
             st.markdown(", ".join(authors_list))
+
+            st.caption(f"Published on **{work['publication_date']}** in ***{work['host_venue']['display_name']}*** ({work['host_venue']['publisher']})".replace("in ***None***",""))
+
+            oa_info = "**Open access**" if work['open_access']['is_oa'] == True else ""
+            oa_info += " (" + work['host_venue']['license'].upper() +")" if (len(work['host_venue']['license'] or "") != 0) else ""
+            oa_info
 
             st.caption(urllib.parse.quote(work['doi'], safe=':/'))
 
@@ -78,7 +79,7 @@ def request_works(concept_name):
                 for source in work["alternate_host_venues"]:
                     st.caption(f"- [{source['display_name']}]({source['url']})")
 
-            with st.expander("See related concepts"):
+            with st.expander("Related concepts"):
                 for work_concept in work['concepts']:
                     st.caption(work_concept['display_name']) 
                     st.progress(float(work_concept['score']))     
