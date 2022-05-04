@@ -68,7 +68,7 @@ def request_works(concept_name):
 
             st.caption(f"Published on **{work['publication_date']}** in ***{work['host_venue']['display_name']}*** ({work['host_venue']['publisher']})".replace("in ***None***",""))
 
-            oa_info = ":green_circle: **Open access**" if work['open_access']['is_oa'] == True else ""
+            oa_info = ":large_green_circle: **Open access**" if work['open_access']['is_oa'] == True else ""
             oa_info += " (" + work['host_venue']['license'].upper() +")" if (len(work['host_venue']['license'] or "") != 0) else ""
             st.markdown(oa_info)
 
