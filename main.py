@@ -72,7 +72,7 @@ def request_works(concept_name):
                 #if len(author_orcid) > 0:
                 #    authors_list.append("[" + author_display_name + "](" + author_orcid +")")
                 #else:
-                #    authors_list.append(author_display_name)
+                authors_list.append(author_display_name)
             st.markdown(", ".join(authors_list))
 
             st.caption(urllib.parse.quote(work['doi'], safe=':/'))
