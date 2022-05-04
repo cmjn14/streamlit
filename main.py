@@ -77,7 +77,8 @@ def request_works(concept_name):
             st.caption(f"{work['cited_by_count']} citations")
             with st.expander("See related concepts"):
                 for work_concept in work['concepts']:
-                    st.caption(work_concept['display_name']) st.progress(float(work_concept['score']))      
+                    st.caption(work_concept['display_name']) 
+                    st.progress(float(work_concept['score']))      
     return True
 
 searched_concept = st.text_input("Search concepts:", value="")
