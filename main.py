@@ -47,7 +47,6 @@ polite = "&mailto=cedric.lopez@free.fr"
 
 def request_concepts(searchedterm):
     if len(searchedterm) != 0:
-        st.write('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm + polite)
         searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm + polite).json()['results']
         for result in searchresults:
             st.markdown(f"**{result['display_name']}**<br/><small>{result['hint']}</small>", unsafe_allow_html=True)
@@ -55,7 +54,6 @@ def request_concepts(searchedterm):
 
 def request_works(concept_name):
     if len(concept_name) != 0:
-        st.write('https://api.openalex.org/works?search=' + concept_name.replace(" ","%20") + '&filter=is_paratext:false' + polite)
         search_works = requests.get('https://api.openalex.org/works?search=' + concept_name.replace(" ","%20") + '&filter=is_paratext:false' + polite).json()['results']
         for work in search_works:
             st.markdown("---")
