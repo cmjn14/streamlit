@@ -59,7 +59,7 @@ def request_works(concept_name):
             st.markdown(f"##### {work['display_name']}")
             st.caption(f"Published on **{work['publication_date']}** in ***{work['host_venue']['display_name']}*** ({work['host_venue']['publisher']})".replace("in ***None***",""))
             if work['open_access']['is_oa']:
-                oa_info = "**Open access**"
+                oa_info = "#Open-access"
                 if len(work['host_venue']['license'] or "") != 0:
                     oa_info += " (" + work['host_venue']['license'].upper() +")"
                 st.markdown(oa_info)
@@ -77,7 +77,7 @@ def request_works(concept_name):
             st.caption(f"{work['cited_by_count']} citations")
             with st.expander("Other sources"):
                 for source in work["alternate_host_venues"]:
-                    st.caption(f"- [{source['display_name']}]({source['url']})")
+                    st.caption(f"- [{source['display_name']}]({source['url']}) {if }")
             with st.expander("See related concepts"):
                 for work_concept in work['concepts']:
                     st.caption(work_concept['display_name']) 
