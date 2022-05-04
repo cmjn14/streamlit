@@ -75,10 +75,13 @@ def request_works(concept_name):
             st.markdown(", ".join(authors_list))
             st.caption(urllib.parse.quote(work['doi'], safe=':/'))
             st.caption(f"{work['cited_by_count']} citations")
+            with st.expander("Other sources"):
+                for source in work["alternate_host_venues"]:
+                    st.caption(f"- [{source['display_name']}]({source['url']})")
             with st.expander("See related concepts"):
                 for work_concept in work['concepts']:
                     st.caption(work_concept['display_name']) 
-                    st.progress(float(work_concept['score']))      
+                    st.progress(float(work_concept['score']))     
     return True
 
 searched_concept = st.text_input("Search concepts:", value="")
