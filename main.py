@@ -77,7 +77,7 @@ def request_works(concept_name):
             st.caption(f"{work['cited_by_count']} citations")
             with st.expander("Other sources"):
                 for source in work["alternate_host_venues"]:
-                    st.caption(f"- [{source['display_name']}]({source['url']}) {if }")
+                    st.caption(f"- [{source['display_name']}]({source['url']})")
             with st.expander("See related concepts"):
                 for work_concept in work['concepts']:
                     st.caption(work_concept['display_name']) 
