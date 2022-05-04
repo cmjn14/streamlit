@@ -50,7 +50,7 @@ def request_concepts(searchedterm):
         st.write('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm + polite)
         searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm + polite).json()['results']
         for result in searchresults:
-            st.markdown(f"**{result['display_name']}**<br/>{result['hint']}")
+            st.markdown(f"**{result['display_name']}**<br/><small>{result['hint']}</small>", unsafe_allow_html=True)
     return True
 
 def request_works(concept_name):
