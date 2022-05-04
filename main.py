@@ -58,29 +58,31 @@ def request_works(concept_name):
             st.markdown("---")
             st.markdown(f"##### {work['display_name']}")
             st.caption(f"Published on **{work['publication_date']}** in ***{work['host_venue']['display_name']}*** ({work['host_venue']['publisher']})".replace("in ***None***",""))
+
             oa_info = "**Open access**" if work['open_access']['is_oa'] == True else ""
             oa_info += " (" + work['host_venue']['license'].upper() +")" if (len(work['host_venue']['license'] or "") != 0) else ""
             oa_info
-            #if work['open_access']['is_oa']:
-            #    oa_info = "**Open access**"
-            #    if len(work['host_venue']['license'] or "") != 0:
-            #        oa_info += " (" + work['host_venue']['license'].upper() +")"
-            #    st.markdown(oa_info)
+
             authors_list = []
             for authorship in work['authorships']:
                 author = authorship['author']
-                author_display_name = author['display_name']
-                author_orcid = author['orcid'] or ""
-                if len(author_orcid) > 0:
-                    authors_list.append("[" + author_display_name + "](" + author_orcid +")")
-                else:
-                    authors_list.append(author_display_name)
+                #author_display_name = author['display_name']
+                author_display_name = author['display_name'] if author['orcid'] == None else (f"[{author['display_name']}]({author['orcid']})")
+                #author_orcid = author['orcid'] or ""
+                #if len(author_orcid) > 0:
+                #    authors_list.append("[" + author_display_name + "](" + author_orcid +")")
+                #else:
+                #    authors_list.append(author_display_name)
             st.markdown(", ".join(authors_list))
+
             st.caption(urllib.parse.quote(work['doi'], safe=':/'))
+
             st.caption(f"{work['cited_by_count']} citations")
+
             with st.expander("Other sources"):
                 for source in work["alternate_host_venues"]:
                     st.caption(f"- [{source['display_name']}]({source['url']})")
+
             with st.expander("See related concepts"):
                 for work_concept in work['concepts']:
                     st.caption(work_concept['display_name']) 
