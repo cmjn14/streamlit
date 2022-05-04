@@ -47,7 +47,7 @@ def request_concepts(searchedterm):
     if len(searchedterm) != 0:
         searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm).json()['results']
         for result in searchresults:
-            st.info(f"{result['display_name']}<br/><small>{result['hint']}</small>")
+            st.markdown(st.info(f"{result['display_name']}<br/><small>{result['hint']}</small>"))
     return True
 
 def request_works(concept_name):
