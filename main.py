@@ -70,7 +70,7 @@ def request_works(concept_name):
 
             oa_info = "**Open access**" if work['open_access']['is_oa'] == True else ""
             oa_info += " (" + work['host_venue']['license'].upper() +")" if (len(work['host_venue']['license'] or "") != 0) else ""
-            st.success(oa_info)
+            st.write(oa_info)
 
             st.caption(urllib.parse.quote(work['doi'], safe=':/'))
 
