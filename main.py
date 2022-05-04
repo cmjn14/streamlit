@@ -58,7 +58,7 @@ def request_works(concept_name):
             st.markdown("---")
             st.markdown(f"##### {work['display_name']}")
             st.caption("**" + (work['publication_date'] or work['publication_year'] or "** **") + "** _in_ **" + (work['host_venue']['display_name'] or "") + "** (" + str(work['host_venue']['publisher'] or "") + ")")
-            st.caption(f"Published **{work['publication_date']}** in ***{work['host_venue']['display_name']}*** ({work['host_venue']['publisher']})".replace("in ***None***",""))
+            st.caption(f"Published on **{work['publication_date']}** in ***{work['host_venue']['display_name']}*** ({work['host_venue']['publisher']})".replace("in ***None***",""))
             if work['open_access']['is_oa']:
                 oa_info = "**Open access**"
                 if len(work['host_venue']['license'] or "") != 0:
@@ -76,9 +76,10 @@ def request_works(concept_name):
             st.markdown(", ".join(authors_list))
             st.caption(urllib.parse.quote(work['doi'], safe=':/'))
             st.caption(f"{work['cited_by_count']} citations")
-            for work_concept in work['concepts']:
-                st.caption(work_concept['display_name'])
-                st.progress(float(work_concept['score']))      
+            with st.expander("See related concepts"):
+                for work_concept in work['concepts']:
+                    st.caption(work_concept['display_name'])
+                    st.progress(float(work_concept['score']))      
     return True
 
 searched_concept = st.text_input("Search concepts:", value="")
