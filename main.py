@@ -75,6 +75,7 @@ def request_works(concept_name):
             st.markdown(", ".join(authors_list))
             st.caption(urllib.parse.quote(work['doi'], safe=':/'))
             st.caption(str(work['cited_by_count']) + " citations")
+            st.caption(f"{work['cited_by_count']} citations")
             for work_concept in work['concepts']:
                 st.caption(work_concept['display_name'])
                 st.progress(float(work_concept['score']))      
