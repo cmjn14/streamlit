@@ -63,13 +63,12 @@ def request_works(concept_name):
             oa_info += " (" + work['host_venue']['license'].upper() +")" if (len(work['host_venue']['license'] or "") != 0) else ""
             oa_info
 
-            authors_info = ""
+            authors_list = []
             for authorship in work['authorships']:
                 author = authorship['author']
-                authors_info += author['display_name'] if author['orcid'] == None else (f"[{author['display_name']}]({author['orcid']})")
-            #    authors_list.append(author_display_name)
-            #st.markdown(", ".join(authors_list))
-            authors_info
+                author_display_name += author['display_name'] if author['orcid'] == None else (f"[{author['display_name']}]({author['orcid']})")
+                authors_list.append(author_display_name)
+            st.markdown(", ".join(authors_list))
 
             st.caption(urllib.parse.quote(work['doi'], safe=':/'))
 
