@@ -89,6 +89,9 @@ def request_works(concept_name):
 
 def request_concepts(max_level=0):
     request_url = "https://api.openalex.org/concepts?filter=level:<{max_level}" + polite
+    request_url
+    searchjson = requests.get(request_url).json()
+    st.json(searchjson, expanded=False)
     searchconcepts = requests.get(request_url).json()['results']
     for concept in searchconcepts:
         st.write(f"{concept['display_name']} : {concept['level']}")
