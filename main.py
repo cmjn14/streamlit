@@ -88,10 +88,7 @@ def request_works(concept_name):
     return True
 
 def request_concepts(max_level=0):
-    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{max_level}{polite}", safe=':/')
-    request_url
-    searchjson = requests.get(request_url).json()
-    st.json(searchjson)
+    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{max_level + 1}{polite}", safe=':/')
     searchconcepts = requests.get(request_url).json()['results']
     for concept in searchconcepts:
         st.write(f"{concept['display_name']} : {concept['level']}")
