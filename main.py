@@ -92,7 +92,7 @@ def request_concepts(max_level=0):
     file_list = []
     up_list = []
 
-    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{max_level + 1}&sort=level,ancestors.id{polite}", safe=':/')
+    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{max_level + 1}&sort=level,ancestors.id&per_page=200{polite}", safe=':/')
     request_url
     searchconcepts = requests.get(request_url).json()['results']
     for concept in searchconcepts:
@@ -105,7 +105,7 @@ def request_concepts(max_level=0):
         st.caption(", ".join(ancestors_list))
     data = {'file': file_list, 'up': up_list}
     df = pd.DataFrame(data, columns= ['file', 'up'])
-    df
+    st.dataframe(df)
     return True
 
 request_concepts(2)
