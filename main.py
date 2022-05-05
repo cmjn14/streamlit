@@ -87,8 +87,8 @@ def request_works(concept_name):
                     st.progress(float(work_concept['score']))     
     return True
 
-with open('readme.md', 'x') as f:
-    f.write('Create a new text file!')
+with open('test.md', 'x') as f:
+    f.write('Create a new md file!')
     st.write("File created")
     f.close()
     st.write("File closed")
