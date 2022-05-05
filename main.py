@@ -45,6 +45,7 @@ st.write("Test with openalex API")
 
 polite = "&mailto=cedric.lopez@free.fr"
 
+
 def request_concepts(searchedterm):
     if len(searchedterm) != 0:
         searchresults = requests.get('https://api.openalex.org/autocomplete/concepts?q=' + searchedterm + polite).json()['results']
@@ -86,7 +87,14 @@ def request_works(concept_name):
                     st.progress(float(work_concept['score']))     
     return True
 
+def request_concepts(max_level):
+    searchconcepts = requests.get('https://api.openalex.org/autocomplete/concepts?filter=level:<' + max_level + polite).json()['results']
+    for concept in searchconcepts:
+        st.write(f"{concept['display_name']} : {concept['level']}")
+st.stop()
+
 searched_concept = st.text_input("Search concepts:", value="")
+
 if len(searched_concept) != 0:
     request_concepts(searched_concept)
     request_works(searched_concept)
