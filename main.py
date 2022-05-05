@@ -94,8 +94,6 @@ def request_concepts(max_level=0):
 
     request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{max_level + 1}&sort=level,ancestors.id{polite}", safe=':/')
     request_url
-    conceptsjson = requests.get(request_url).json()
-    st.json(conceptsjson)
     searchconcepts = requests.get(request_url).json()['results']
     for concept in searchconcepts:
         st.write(f"{concept['display_name']} : {concept['level']}")
