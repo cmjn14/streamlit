@@ -87,10 +87,15 @@ def request_works(concept_name):
                     st.progress(float(work_concept['score']))     
     return True
 
-def request_concepts(max_level):
-    searchconcepts = requests.get('https://api.openalex.org/concepts?filter=level:<' + max_level + polite).json()['results']
+def request_concepts(max_level=0):
+    request_url = "https://api.openalex.org/concepts?filter=level:<{max_level}" + polite
+    searchconcepts = requests.get(request_url).json()['results']
     for concept in searchconcepts:
         st.write(f"{concept['display_name']} : {concept['level']}")
+    return True
+
+request_concepts(1)
+
 st.stop()
 
 searched_concept = st.text_input("Search concepts:", value="")
