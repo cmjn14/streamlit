@@ -106,7 +106,13 @@ def request_concepts(max_level=0):
     data = {'file': file_list, 'up': up_list}
     df = pd.DataFrame(data, columns= ['file', 'up'])
     st.dataframe(df)
-    df.to_csv("concepts.csv")
+    csv_file = df.to_csv().encode('utf-8')
+    st.download_button(
+        label="Download data as CSV",
+        data=csv_file,
+        file_name='concepts.csv',
+        mime='text/csv',
+    )
     return True
 
 request_concepts(2)
