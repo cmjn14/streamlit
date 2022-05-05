@@ -87,12 +87,6 @@ def request_works(concept_name):
                     st.progress(float(work_concept['score']))     
     return True
 
-with open('test-file-creation-cl.md', 'x') as f:
-    f.write('Create a new md file!')
-    st.write("File created")
-    f.close()
-    st.write("File closed")
-
 def request_concepts(max_level=0):
     request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{max_level + 1}&sort=level{polite}", safe=':/')
     request_url
