@@ -93,6 +93,10 @@ def request_concepts(max_level=0):
     searchconcepts = requests.get(request_url).json()['results']
     for concept in searchconcepts:
         st.write(f"{concept['display_name']} : {concept['level']}")
+        ancestors_list = []
+        for ancestor in concept['ancestors']:
+            ancestors_list.append(ancestor['display_name'])
+        st.caption(", ".join(ancestors_list))
     return True
 
 request_concepts(1)
