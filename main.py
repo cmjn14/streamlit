@@ -92,7 +92,7 @@ def request_concepts(max_level=0):
     file_list = []
     up_list = []
 
-    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{max_level + 1}&group_by=ancestor_id{polite}", safe=':/')
+    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{max_level + 1}&group_by=ancestors.id{polite}", safe=':/')
     request_url
     conceptsjson = requests.get(request_url).json()
     st.json(conceptsjson)
