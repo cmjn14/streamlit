@@ -122,5 +122,5 @@ def request_concepts(max_level=0):
 searched_concept = st.text_input("Search concepts:", value="")
 
 if len(searched_concept) != 0:
-    request_concepts(searched_concept)
+#    request_concepts(searched_concept)
     request_works(searched_concept)
