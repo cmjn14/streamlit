@@ -115,9 +115,9 @@ def request_concepts(max_level=0):
     )
     return True
 
-request_concepts(2)
+# request_concepts(2)
 
-st.stop()
+# st.stop()
 
 searched_concept = st.text_input("Search concepts:", value="")
 
