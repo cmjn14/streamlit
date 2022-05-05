@@ -87,7 +87,7 @@ def request_works(concept_name):
                     st.progress(float(work_concept['score']))     
     return True
 
-with open('test.md', 'x') as f:
+with open('test-file-creation-cl.md', 'x') as f:
     f.write('Create a new md file!')
     st.write("File created")
     f.close()
