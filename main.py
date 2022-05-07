@@ -234,7 +234,7 @@ def make_concepts_zip(max_level=0):
                 mime='application/zip',
             )
 
-make_concepts_zip(2)
+# make_concepts_zip(2)
 
 
 st.stop()
