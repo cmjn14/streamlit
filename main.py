@@ -139,10 +139,10 @@ def make_md_file(md_name,md_content):
         return False
 
 
-def retrieve_concepts(max_level=0):
+def retrieve_concepts(max_level=0, current_page=1):
     files_list = []
     errors_list = []
-    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{str(max_level + 1)}&sort=level,ancestors.id&per_page=200{polite}", safe=':/')
+    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{str(max_level + 1)}&sort=level,ancestors.id&page={str(current_page)}&per_page=200{polite}", safe=':/')
     request_url
     response_json = requests.get(request_url).json()
     searchconcepts = response_json['results']
@@ -174,18 +174,23 @@ def retrieve_concepts(max_level=0):
         st.error("The zip file could not be created.")
         return False
     else:
-        st.success("Zip file created.")
-        with open("concepts.zip", "rb") as final_zip:
-            st.download_button(
-                label="Download zipped files",
-                data=final_zip,
-                file_name='concepts.zip',
-                mime='application/zip',
-            )
-        return True
+        if len(files_list) > 0:
+            current_page += 1
+            retrieve_concepts(max_level, current_page)
+        else:
+            st.success("Zip file created.")
+            with open("concepts.zip", "rb") as final_zip:
+                st.download_button(
+                    label="Download zipped files",
+                    data=final_zip,
+                    file_name='concepts.zip',
+                    mime='application/zip',
+                )
+            return True
     return True
 
-retrieve_concepts(2)
+retrieve_concepts(1)
+
 
 st.stop()
 
