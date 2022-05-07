@@ -127,7 +127,7 @@ def make_zip(zip_name, files_list):
                     zip_file.write(f_name)
                     if os.path.exists(f_name):
                         os.remove(f_name)
-                except Exception as e1
+                except Exception as e1:
                     st.error(f"Could not add {f_name} to zip.")
                     logging.error(traceback.format_exc())                    
         return zip_file
