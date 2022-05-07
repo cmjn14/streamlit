@@ -141,6 +141,7 @@ def retrieve_concepts(max_level=0):
     request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{str(max_level + 1)}&sort=level,ancestors.id&per_page=200{polite}", safe=':/')
     request_url
     searchconcepts = requests.get(request_url).json()['results']
+
     for concept in searchconcepts:
         ancestors_list = []
         for ancestor in concept['ancestors']:
@@ -154,13 +155,14 @@ def retrieve_concepts(max_level=0):
         #st.markdown(file_content)
 
         md_file = make_md_file(file_name,file_content)
-            if md_file == False:
-                errors_list.append(file_name)
-            else:
-                files_list.append(md_file)
+        if md_file == False:
+            errors_list.append(file_name)
+        else:
+            files_list.append(md_file)
     
     st.error(f"The following files could not be created: {', '.join(errors_list)}")
     zip_file = make_zip('concepts.zip', files_list)
+    
     if zip_file == False:
         st.error("The zip file could not be created.")
         return False
