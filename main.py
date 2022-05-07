@@ -123,12 +123,16 @@ def make_zip(zip_name, files_list):
         with ZipFile(zip_name, 'w') as zip_file:
             for f in files_list:
                 f_name = os.path.basename(f.name)
-                zip_file.write(f_name)
-                if os.path.exists(f_name):
-                    os.remove(f_name)
+                try:
+                    zip_file.write(f_name)
+                    if os.path.exists(f_name):
+                        os.remove(f_name)
+                except Exception as e1
+                    st.error(f"Could not add {f_name} to zip.")
+                    logging.error(traceback.format_exc())                    
         return zip_file
     except Exception as e:
-        st.error(f"Could not create zip file.")
+        st.error("Could not create zip file.")
         logging.error(traceback.format_exc())
         return False
 
