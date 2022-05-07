@@ -106,8 +106,8 @@ def retrieve_concepts(max_level=0):
         ancestors_list = []
         for ancestor in concept['ancestors']:
             ancestors_list.append(f"[[{ancestor['display_name']}]]")
-        parents_str = "parent: " + ", ".join(ancestors_list)
-        file_lines = ["---", "tags:", f"- level/{concept['level']}",parents_str,"---","",f"# {concept['display_name']}","","","## Description",concept['description']]
+        parents_str = "parent:: " + ", ".join(ancestors_list)
+        file_lines = ["---", "tags:", f"- level/{concept['level']}","---","",f"# {concept['display_name']}","",parents_str,"","## Description",concept['description']]
 
         file_name = concept['display_name']
         file_content = "\r\n".join(file_lines)
