@@ -149,6 +149,7 @@ def retrieve_concepts(max_level=0):
         parents_str = "parent:: " + ", ".join(ancestors_list) if len(ancestors_list) > 0 else  ""
         file_lines = ["---", "tags:", f"- level/{concept['level']}","---","",f"# {concept['display_name']}","",parents_str,"","#### Description",concept['description']]
         file_name = concept['display_name'] + ".md"
+        st.write(file_lines)
         file_content = "\r\n".join(file_lines)
         #st.markdown("---")
         st.caption(file_name)
