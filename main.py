@@ -120,14 +120,10 @@ def make_zip(zip_name, files_list):
     try:
         with ZipFile(zip_name, 'w') as zip_file:
             for f in files_list:
-                f.close()
-                st.write(f)
                 f_name = os.path.basename(f.name)
-                st.write(f_name)
                 zip_file.write(f_name)
                 if os.path.exists(f_name):
                     os.remove(f_name)
-                st.write("processed: " + f_name)
         return zip_file
     except Exception as e:
         logging.error(traceback.format_exc())
@@ -138,7 +134,6 @@ def make_md_file(md_name,md_content):
     try:
         with open(md_name, 'w') as md_file:
             md_file.write(md_content)
-        st.write("OK.")
         return md_file
     except Exception as e:
         logging.error(traceback.format_exc())
@@ -160,9 +155,6 @@ def retrieve_concepts(max_level=0):
         file_lines = ["---", "tags:", f"- level/{concept['level']}","---","",f"# {concept['display_name']}","",parents_str,"","#### Description",f"{concept['description']}"]
         file_name = concept['display_name'] + ".md"
         file_content = "\r\n".join(file_lines)
-        #st.markdown("---")
-        st.caption(file_name)
-        #st.markdown(file_content)
 
         md_file = make_md_file(file_name,file_content)
         if md_file == False:
