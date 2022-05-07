@@ -15,6 +15,8 @@ import urllib as urllib
 
 import requests as requests
 
+from zipfile import ZipFile
+
 st.title('My first app')
 
 st.write("Here's our first attempt at using data to create a table:")
