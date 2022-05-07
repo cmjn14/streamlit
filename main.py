@@ -114,7 +114,7 @@ def request_works(concept_name):
 #         mime='text/csv',
 #     )
 
-def add_to_zip(zip_name, new_file)
+def add_to_zip(zip_name, new_file):
     try:
         with ZipFile(zip_name, 'w') as zip_file:
             zip_file.write(new_file)
