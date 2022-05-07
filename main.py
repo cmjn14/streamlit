@@ -194,35 +194,36 @@ def retrieve_concepts(max_level=0, current_page=1):
 def make_concepts_zip(max_level=0):
     current_page = 0
     files_full_list = []
+    nb_new_files = -1
     counter = 0
-    while True:
-
+    while nb_new_files != 0:
         counter +=1
         if counter > 20:    #security
             break;
         
         current_page +=1
         new_files_list = retrieve_concepts(max_level, current_page)
+        nb_new_files = len(new_files_list)
 
-        if len(new_files_list) > 0:
+        if nb_new_files > 0:
             files_full_list = files_full_list + new_files_list
             st.write(str(len(files_full_list)) + " files collected.")
-        else:
-            st.write("All files collected.")
-            zip_file = make_zip('concepts.zip', files_full_list)
-            if zip_file == False:
-                st.error("The zip file could not be created.")
-                return False
-            else:
-                st.success("Zip file created.")
-                with open("concepts.zip", "rb") as final_zip:
-                    st.download_button(
-                        label="Download zipped files",
-                        data=final_zip,
-                        file_name='concepts.zip',
-                        mime='application/zip',
-                    )
-                break;
+
+    st.write("All files collected.")
+    zip_file = make_zip('concepts.zip', files_full_list)
+    if zip_file == False:
+        st.error("The zip file could not be created.")
+        return False
+    else:
+        st.success("Zip file created.")
+        with open("concepts.zip", "rb") as final_zip:
+            st.download_button(
+                label="Download zipped files",
+                data=final_zip,
+                file_name='concepts.zip',
+                mime='application/zip',
+            )
+        break;
 
 make_concepts_zip(2)
 
