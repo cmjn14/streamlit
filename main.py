@@ -185,7 +185,7 @@ def retrieve_concepts(max_level=0):
         return True
     return True
 
-retrieve_concepts(1)
+retrieve_concepts(2)
 
 st.stop()
 
