@@ -94,11 +94,29 @@ def make_md_file_and_zip(zip_file,md_name,md_content):
     md_file.write(md_content)
     md_file.close()
 
+def retrieve_concepts_as_csv(max_level=0):
+    file_list = []
+    up_list = []
+    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{str(max_level + 1)}&sort=level,ancestors.id&per_page=200{polite}", safe=':/')
+    request_url
+    searchconcepts = requests.get(request_url).json()['results']
+    for concept in searchconcepts:
+        ancestors_list = []
+        for ancestor in concept['ancestors']:
+            file_list.append(concept['display_name'])
+            up_list.append(ancestor['display_name'])
+    data = {'file': file_list, 'up': up_list}
+    df = pd.DataFrame(data, columns= ['file', 'up'])
+    st.dataframe(df)
+    csv_file = df.to_csv().encode('utf-8')
+    st.download_button(
+        label="Download data as CSV",
+        data=csv_file,
+        file_name='concepts.csv',
+        mime='text/csv',
+    )
+
 def retrieve_concepts(max_level=0):
-
-    #file_list = []
-    #up_list = []
-
     request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{str(max_level + 1)}&sort=level,ancestors.id&per_page=200{polite}", safe=':/')
     request_url
     searchconcepts = requests.get(request_url).json()['results']
@@ -111,26 +129,9 @@ def retrieve_concepts(max_level=0):
 
         file_name = concept['display_name']
         file_content = "\r\n".join(file_lines)
-        #st.write(f"{concept['display_name']} : {concept['level']}")
-        ancestors_list = []
-        #for ancestor in concept['ancestors']:
-            #file_list.append(concept['display_name'])
-            #up_list.append(ancestor['display_name'])
-        #    ancestors_list.append(f"[[{ancestor['display_name']}]]")
-        #file_content += ", ".join(ancestors_list)
         st.markdown("---")
         st.caption(file_name)
         st.markdown(file_content)
-    #data = {'file': file_list, 'up': up_list}
-    #df = pd.DataFrame(data, columns= ['file', 'up'])
-    #st.dataframe(df)
-    #csv_file = df.to_csv().encode('utf-8')
-    #st.download_button(
-    #    label="Download data as CSV",
-    #    data=csv_file,
-    #    file_name='concepts.csv',
-    #    mime='text/csv',
-    #)
     return True
 
 retrieve_concepts(2)
