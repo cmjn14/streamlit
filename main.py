@@ -94,30 +94,34 @@ def make_md_file(file_name,file_content):
 
 def request_concepts(max_level=0):
 
-    file_list = []
-    up_list = []
+    #file_list = []
+    #up_list = []
 
     request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{max_level + 1}&sort=level,ancestors.id&per_page=200{polite}", safe=':/')
     request_url
     searchconcepts = requests.get(request_url).json()['results']
     for concept in searchconcepts:
-        st.write(f"{concept['display_name']} : {concept['level']}")
+        file_name = concept['display_name']
+        file_content = "- parent: "
+        #st.write(f"{concept['display_name']} : {concept['level']}")
         ancestors_list = []
         for ancestor in concept['ancestors']:
-            file_list.append(concept['display_name'])
-            up_list.append(ancestor['display_name'])
-            ancestors_list.append(ancestor['display_name'])
-        st.caption(", ".join(ancestors_list))
-    data = {'file': file_list, 'up': up_list}
-    df = pd.DataFrame(data, columns= ['file', 'up'])
-    st.dataframe(df)
-    csv_file = df.to_csv().encode('utf-8')
-    st.download_button(
-        label="Download data as CSV",
-        data=csv_file,
-        file_name='concepts.csv',
-        mime='text/csv',
-    )
+            #file_list.append(concept['display_name'])
+            #up_list.append(ancestor['display_name'])
+            ancestors_list.append(f"[[{ancestor['display_name']}]]")
+        file_content += ", ".join(ancestors_list)
+        st.write(file_name)
+        st.caption(file_name)
+    #data = {'file': file_list, 'up': up_list}
+    #df = pd.DataFrame(data, columns= ['file', 'up'])
+    #st.dataframe(df)
+    #csv_file = df.to_csv().encode('utf-8')
+    #st.download_button(
+    #    label="Download data as CSV",
+    #    data=csv_file,
+    #    file_name='concepts.csv',
+    #    mime='text/csv',
+    #)
     return True
 
 request_concepts(2)
