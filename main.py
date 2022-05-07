@@ -210,6 +210,7 @@ def make_concepts_zip(max_level=0):
             st.write(str(len(files_full_list)) + " files collected.")
 
     st.write("All files collected.")
+    
     zip_file = make_zip('concepts.zip', files_full_list)
     if zip_file == False:
         st.error("The zip file could not be created.")
@@ -223,7 +224,6 @@ def make_concepts_zip(max_level=0):
                 file_name='concepts.zip',
                 mime='application/zip',
             )
-        break;
 
 make_concepts_zip(2)
 
