@@ -103,15 +103,21 @@ def retrieve_concepts(max_level=0):
     request_url
     searchconcepts = requests.get(request_url).json()['results']
     for concept in searchconcepts:
-        file_name = concept['display_name']
-        file_content = f"# {concept['display_name']}\r\n#level/{concept['level']}\r\n- parent: "
-        #st.write(f"{concept['display_name']} : {concept['level']}")
         ancestors_list = []
         for ancestor in concept['ancestors']:
+            ancestors_list.append(f"[[{ancestor['display_name']}]]")
+        parents_str = "- parents: " + ", ".join(ancestors_list)
+        file_lines = ["---", "tags:", f"- level/{concept['level']}",parents_str,"---","",f"# {concept['display_name']}","","","## Description",concept['hint']]
+
+        file_name = concept['display_name']
+        file_content = "\r\n".join(file_lines)
+        #st.write(f"{concept['display_name']} : {concept['level']}")
+        ancestors_list = []
+        #for ancestor in concept['ancestors']:
             #file_list.append(concept['display_name'])
             #up_list.append(ancestor['display_name'])
-            ancestors_list.append(f"[[{ancestor['display_name']}]]")
-        file_content += ", ".join(ancestors_list)
+        #    ancestors_list.append(f"[[{ancestor['display_name']}]]")
+        #file_content += ", ".join(ancestors_list)
         st.markdown("---")
         st.caption(file_name)
         st.markdown(file_content)
