@@ -105,7 +105,7 @@ def retrieve_concepts(max_level=0):
     for concept in searchconcepts:
         file_name = concept['display_name']
         file_content = "# " + file_name + "\r\n#level/" + str(concept['level']) + "\r\n- parent: "
-        file_content = "# {concept['display_name']}\r\n#level/" + str(concept['level']) + "\r\n- parent: "
+        file_content = f"# {concept['display_name']}\r\n#level/" + str(concept['level']) + "\r\n- parent: "
         #st.write(f"{concept['display_name']} : {concept['level']}")
         ancestors_list = []
         for ancestor in concept['ancestors']:
