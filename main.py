@@ -126,16 +126,17 @@ def make_zip(zip_name, files_list):
                     os.remove(f_name)
         return zip_file
     except Exception as e:
+        st.error(f"Could not create zip file.")
         logging.error(traceback.format_exc())
         return False
 
 def make_md_file(md_name,md_content):
-    st.caption(md_name)
     try:
         with open(md_name, 'w') as md_file:
             md_file.write(md_content)
         return md_file
     except Exception as e:
+        st.error(f"Could not create file {md_name}")
         logging.error(traceback.format_exc())
         return False
 
@@ -143,7 +144,7 @@ def make_md_file(md_name,md_content):
 def retrieve_concepts(max_level=0, current_page=1):
     files_list = []
     errors_list = []
-    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{str(max_level + 1)}&sort=level,ancestors.id&page={str(current_page)}&per_page=200{polite}", safe=':/')
+    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{str(max_level + 1)}&sort=level,ancestors.id&page={str(current_page)}&per_page=25{polite}", safe=':/')
     request_url
     response_json = requests.get(request_url).json()
     searchconcepts = response_json['results']
@@ -205,7 +206,9 @@ def make_concepts_zip(max_level=0):
 
         if len(new_files_list) > 0:
             files_full_list = files_full_list + new_files_list
+            st.write(str(len(files_full_list)) + " files collected.")
         else:
+            st.write("All files collected.")
             zip_file = make_zip('concepts.zip', files_full_list)
             if zip_file == False:
                 st.error("The zip file could not be created.")
