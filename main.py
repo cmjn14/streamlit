@@ -122,8 +122,9 @@ def make_zip(zip_name, files_list):
             for f in files_list:
                 f.close()
                 st.write(f)
-                zip_file.write(f)
                 f_name = os.path.basename(f.name)
+                st.write(f_name)
+                zip_file.write(f_name)
                 if os.path.exists(f_name):
                     os.remove(f_name)
                 st.write("processed: " + f_name)
