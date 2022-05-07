@@ -181,9 +181,10 @@ def retrieve_concepts(max_level=0):
         return False
     else:
         st.success("Zip file created.")
+        with open("concepts.zip", "rb") as final_zip:
         st.download_button(
             label="Download zipped files",
-            data=zip_file,
+            data=final_zip,
             file_name='concepts.zip',
             mime='application/zip',
         )
