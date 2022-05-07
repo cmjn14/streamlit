@@ -174,11 +174,13 @@ def retrieve_concepts(max_level=0):
         st.error(f"The following files could not be created: {', '.join(errors_list)}")
     
     zip_file = make_zip('concepts.zip', files_list)
+    st.write(zip_file)
 
     if zip_file == False:
         st.error("The zip file could not be created.")
         return False
     else:
+        st.success("Zip file created.")
         st.download_button(
             label="Download zipped files",
             data=zip_file,
