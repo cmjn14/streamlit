@@ -184,14 +184,14 @@ def retrieve_concepts(max_level=0, current_page=1):
     #         )
     #     return True
     nb_files_created = len(files_list)
-    st.write(f"{nb_files_created} created")
-    return nb_files_created
+    st.write(f"{nb_files_created} files created.")
+    return files_list
 
 #retrieve_concepts(1)
 
 def make_concepts_zip(max_level=0):
-    current_page = 1
-    files_list = []
+    current_page = 0
+    files_full_list = []
     counter = 0
     while True:
 
@@ -203,9 +203,9 @@ def make_concepts_zip(max_level=0):
         new_files_list = retrieve_concepts(max_level, current_page)
 
         if len(new_files_list) > 0:
-            files_list = files_list + new_files_list
+            files_full_list = files_full_list + new_files_list
         else:
-            zip_file = make_zip('concepts.zip', files_list)
+            zip_file = make_zip('concepts.zip', files_full_list)
             if zip_file == False:
                 st.error("The zip file could not be created.")
                 return False
