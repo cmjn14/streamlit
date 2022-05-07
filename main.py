@@ -87,12 +87,12 @@ def request_works(concept_name):
                     st.progress(float(work_concept['score']))     
     return True
 
-def make_md_file(file_name,file_content):
-    md_file = open("{file_name}.md", "w")
-    md_file.write(file_content)
+def make_md_file_and_zip(zip_file,md_name,md_content):
+    md_file = open("{md_name}.md", "w")
+    md_file.write(md_content)
     md_file.close()
 
-def request_concepts(max_level=0):
+def retrieve_concepts(max_level=0):
 
     #file_list = []
     #up_list = []
@@ -125,7 +125,7 @@ def request_concepts(max_level=0):
     #)
     return True
 
-request_concepts(2)
+retrieve_concepts(2)
 
 st.stop()
 
