@@ -114,20 +114,21 @@ def request_works(concept_name):
 #         mime='text/csv',
 #     )
 
-def add_to_zip(zip_name, new_file):
+def make_zip(zip_name, files_list):
+    errors_list = []
     try:
         with ZipFile(zip_name, 'w') as zip_file:
-            zip_file.write(new_file)
+            for f in files_list:
+                zip_file.write(md_file)
         return zip_file
     except Exception as e:
         logging.error(traceback.format_exc())
         return False
 
-def make_md_file_and_zip(zip_name,md_name,md_content):
+def make_md_file(md_name,md_content):
     try:
         with open(md_name, 'w') as md_file:
             md_file.write(md_content)
-            add_to_zip(zip_name, md_file)
         return md_file
     except Exception as e:
         logging.error(traceback.format_exc())
@@ -135,7 +136,8 @@ def make_md_file_and_zip(zip_name,md_name,md_content):
 
 
 def retrieve_concepts(max_level=0):
-    zip_file = ZipFile('concepts.zip', 'w')
+    files_list = []
+    errors_list = []
     request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{str(max_level + 1)}&sort=level,ancestors.id&per_page=200{polite}", safe=':/')
     request_url
     searchconcepts = requests.get(request_url).json()['results']
@@ -147,14 +149,31 @@ def retrieve_concepts(max_level=0):
         file_lines = ["---", "tags:", f"- level/{concept['level']}","---","",f"# {concept['display_name']}","",parents_str,"","#### Description",concept['description']]
         file_name = concept['display_name'] + ".md"
         file_content = "\r\n".join(file_lines)
-        st.markdown("---")
+        #st.markdown("---")
         st.caption(file_name)
-        st.markdown(file_content)
+        #st.markdown(file_content)
 
+        md_file = make_md_file(file_name,file_content)
+            if md_file == False:
+                errors_list.append(file_name)
+            else:
+                files_list.append(md_file)
+    
+    st.error(f"The following files could not be created: {', '.join(errors_list)}")
+    zip_file = make_zip('concepts.zip', files_list)
+    if zip_file == False:
+        st.error("The zip file could not be created.")
+        return False
+    else:
+        st.download_button(
+            label="Download zipped files",
+            data=zip_file,
+            file_name='concepts.zip',
+            mime='application/zip',
+        )
+        return True
 
-    return True
-
-retrieve_concepts(2)
+retrieve_concepts(1)
 
 st.stop()
 
