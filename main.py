@@ -120,6 +120,7 @@ def make_zip(zip_name, files_list):
     try:
         with ZipFile(zip_name, 'w') as zip_file:
             for f in files_list:
+                st.write(f)
                 zip_file.write(f)
                 f_name = os.path.basename(f.name)
                 if os.path.exists(f_name):
