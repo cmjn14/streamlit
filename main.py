@@ -111,7 +111,7 @@ def request_concepts(max_level=0):
             ancestors_list.append(f"[[{ancestor['display_name']}]]")
         file_content += ", ".join(ancestors_list)
         st.write(file_name)
-        st.caption(file_name)
+        st.caption(file_content)
     #data = {'file': file_list, 'up': up_list}
     #df = pd.DataFrame(data, columns= ['file', 'up'])
     #st.dataframe(df)
