@@ -116,7 +116,7 @@ def request_works(concept_name):
 #     )
 
 def make_zip(zip_name, files_list):
-    st.write("Creating" + zip_name + " with " + len(files_list) + " files ...")
+    st.write("Creating" + zip_name + " with " + str(len(files_list)) + " files ...")
     try:
         with ZipFile(zip_name, 'w') as zip_file:
             for f in files_list:
