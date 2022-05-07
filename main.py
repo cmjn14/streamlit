@@ -154,26 +154,27 @@ def retrieve_concepts(max_level=0):
         st.caption(file_name)
         #st.markdown(file_content)
 
-        md_file = make_md_file(file_name,file_content)
-        if md_file == False:
-            errors_list.append(file_name)
-        else:
-            files_list.append(md_file)
+        # md_file = make_md_file(file_name,file_content)
+        # if md_file == False:
+        #     errors_list.append(file_name)
+        # else:
+        #     files_list.append(md_file)
     
-    st.error(f"The following files could not be created: {', '.join(errors_list)}")
-    zip_file = make_zip('concepts.zip', files_list)
-    
-    if zip_file == False:
-        st.error("The zip file could not be created.")
-        return False
-    else:
-        st.download_button(
-            label="Download zipped files",
-            data=zip_file,
-            file_name='concepts.zip',
-            mime='application/zip',
-        )
-        return True
+    # st.error(f"The following files could not be created: {', '.join(errors_list)}")
+    # zip_file = make_zip('concepts.zip', files_list)
+
+    # if zip_file == False:
+    #     st.error("The zip file could not be created.")
+    #     return False
+    # else:
+    #     st.download_button(
+    #         label="Download zipped files",
+    #         data=zip_file,
+    #         file_name='concepts.zip',
+    #         mime='application/zip',
+    #     )
+    #     return True
+    return True
 
 retrieve_concepts(1)
 
