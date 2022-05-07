@@ -117,6 +117,8 @@ def request_works(concept_name):
 
 def make_zip(zip_name, files_list):
     st.write("Creating " + zip_name + " with " + str(len(files_list)) + " files ...")
+    st.write(files_list[1])
+    st.write(files_list[499])
     try:
         with ZipFile(zip_name, 'w') as zip_file:
             for f in files_list:
@@ -210,7 +212,7 @@ def make_concepts_zip(max_level=0):
             st.write(str(len(files_full_list)) + " files collected.")
 
     st.write("All files collected.")
-    
+
     zip_file = make_zip('concepts.zip', files_full_list)
     if zip_file == False:
         st.error("The zip file could not be created.")
