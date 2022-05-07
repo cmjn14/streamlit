@@ -116,7 +116,7 @@ def request_works(concept_name):
 #     )
 
 def make_zip(zip_name, files_list):
-    errors_list = []
+    st.write("Creating" + zip_name + " with " + len(files_list) + " files ...")
     try:
         with ZipFile(zip_name, 'w') as zip_file:
             for f in files_list:
@@ -131,9 +131,11 @@ def make_zip(zip_name, files_list):
         return False
 
 def make_md_file(md_name,md_content):
+    st.write("creating " + md_name + " ...")
     try:
         with open(md_name, 'w') as md_file:
             md_file.write(md_content)
+        st.write("OK.")
         return md_file
     except Exception as e:
         logging.error(traceback.format_exc())
@@ -154,7 +156,6 @@ def retrieve_concepts(max_level=0):
         parents_str = "parent:: " + ", ".join(ancestors_list) if len(ancestors_list) > 0 else  ""
         file_lines = ["---", "tags:", f"- level/{concept['level']}","---","",f"# {concept['display_name']}","",parents_str,"","#### Description",f"{concept['description']}"]
         file_name = concept['display_name'] + ".md"
-        st.write(file_lines)
         file_content = "\r\n".join(file_lines)
         #st.markdown("---")
         st.caption(file_name)
