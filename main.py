@@ -130,6 +130,7 @@ def make_zip(zip_name, files_list):
         return False
 
 def make_md_file(md_name,md_content):
+    st.caption(md_name)
     try:
         with open(md_name, 'w') as md_file:
             md_file.write(md_content)
