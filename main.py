@@ -153,6 +153,9 @@ def retrieve_concepts(max_level=0, current_page=1):
     request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{str(max_level + 1)}&sort=level,ancestors.id&page={str(current_page)}&per_page=200{polite}", safe=':/')
     request_url
     response_json = requests.get(request_url).json()
+    if not 'results' in response_json:  #happens if request exceeds last page of results (max 10,000 results from openalex api)
+        return files_list
+
     searchconcepts = response_json['results']
 
     st.write(f"{response_json['meta']['count']} results found.")
