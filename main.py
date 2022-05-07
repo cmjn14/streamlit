@@ -168,28 +168,59 @@ def retrieve_concepts(max_level=0, current_page=1):
     if len(errors_list) > 0 :
         st.error(f"The following files could not be created: {', '.join(errors_list)}")
     
-    zip_file = make_zip('concepts.zip', files_list)
+    # zip_file = make_zip('concepts.zip', files_list)
 
-    if zip_file == False:
-        st.error("The zip file could not be created.")
-        return False
-    else:
-        if len(files_list) > 0:
-            current_page += 1
-            retrieve_concepts(max_level, current_page)
+    # if zip_file == False:
+    #     st.error("The zip file could not be created.")
+    #     return False
+    # else:
+    #     st.success("Zip file created.")
+    #     with open("concepts.zip", "rb") as final_zip:
+    #         st.download_button(
+    #             label="Download zipped files",
+    #             data=final_zip,
+    #             file_name='concepts.zip',
+    #             mime='application/zip',
+    #         )
+    #     return True
+    nb_files_created = len(files_list)
+    st.write(f"{nb_files_created} created")
+    return nb_files_created
+
+#retrieve_concepts(1)
+
+def make_concepts_zip(max_level=0):
+    current_page = 1
+    files_list = []
+    counter = 0
+    while True:
+
+        counter +=1
+        if counter > 20:    #security
+            break;
+        
+        current_page +=1
+        new_files_list = retrieve_concepts(max_level, current_page)
+
+        if len(new_files_list) > 0:
+            files_list = files_list + new_files_list
         else:
-            st.success("Zip file created.")
-            with open("concepts.zip", "rb") as final_zip:
-                st.download_button(
-                    label="Download zipped files",
-                    data=final_zip,
-                    file_name='concepts.zip',
-                    mime='application/zip',
-                )
-            return True
-    return True
+            zip_file = make_zip('concepts.zip', files_list)
+            if zip_file == False:
+                st.error("The zip file could not be created.")
+                return False
+            else:
+                st.success("Zip file created.")
+                with open("concepts.zip", "rb") as final_zip:
+                    st.download_button(
+                        label="Download zipped files",
+                        data=final_zip,
+                        file_name='concepts.zip',
+                        mime='application/zip',
+                    )
+                break;
 
-retrieve_concepts(1)
+make_concepts_zip(1)
 
 
 st.stop()
