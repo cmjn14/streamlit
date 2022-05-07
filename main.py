@@ -14,6 +14,7 @@ import pandas as pd
 import urllib as urllib
 import traceback
 import logging
+import os
 
 import requests as requests
 
@@ -120,6 +121,10 @@ def make_zip(zip_name, files_list):
         with ZipFile(zip_name, 'w') as zip_file:
             for f in files_list:
                 zip_file.write(md_file)
+                f_name = os.path.basename(f.name)
+                if os.path.exists(f_name):
+                    os.remove(f_name)
+                st.write("processed: " + f_name)
         return zip_file
     except Exception as e:
         logging.error(traceback.format_exc())
@@ -155,26 +160,28 @@ def retrieve_concepts(max_level=0):
         st.caption(file_name)
         #st.markdown(file_content)
 
-        # md_file = make_md_file(file_name,file_content)
-        # if md_file == False:
-        #     errors_list.append(file_name)
-        # else:
-        #     files_list.append(md_file)
+        md_file = make_md_file(file_name,file_content)
+        if md_file == False:
+            errors_list.append(file_name)
+        else:
+            files_list.append(md_file)
     
-    # st.error(f"The following files could not be created: {', '.join(errors_list)}")
-    # zip_file = make_zip('concepts.zip', files_list)
+    if len(errors_list) > 0 :
+        st.error(f"The following files could not be created: {', '.join(errors_list)}")
+    
+    zip_file = make_zip('concepts.zip', files_list)
 
-    # if zip_file == False:
-    #     st.error("The zip file could not be created.")
-    #     return False
-    # else:
-    #     st.download_button(
-    #         label="Download zipped files",
-    #         data=zip_file,
-    #         file_name='concepts.zip',
-    #         mime='application/zip',
-    #     )
-    #     return True
+    if zip_file == False:
+        st.error("The zip file could not be created.")
+        return False
+    else:
+        st.download_button(
+            label="Download zipped files",
+            data=zip_file,
+            file_name='concepts.zip',
+            mime='application/zip',
+        )
+        return True
     return True
 
 retrieve_concepts(1)
