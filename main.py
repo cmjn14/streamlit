@@ -102,7 +102,7 @@ def request_concepts(max_level=0):
     searchconcepts = requests.get(request_url).json()['results']
     for concept in searchconcepts:
         file_name = concept['display_name']
-        file_content = "- parent: "
+        file_content = "#{file_name}  - parent: "
         #st.write(f"{concept['display_name']} : {concept['level']}")
         ancestors_list = []
         for ancestor in concept['ancestors']:
@@ -110,8 +110,9 @@ def request_concepts(max_level=0):
             #up_list.append(ancestor['display_name'])
             ancestors_list.append(f"[[{ancestor['display_name']}]]")
         file_content += ", ".join(ancestors_list)
-        st.write(file_name)
-        st.caption(file_content)
+        st.markdown("---")
+        st.caption(file_name)
+        st.markdown(file_content)
     #data = {'file': file_list, 'up': up_list}
     #df = pd.DataFrame(data, columns= ['file', 'up'])
     #st.dataframe(df)
