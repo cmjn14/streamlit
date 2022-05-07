@@ -150,7 +150,7 @@ def make_md_file(md_name,md_content):
 def retrieve_concepts(max_level=0, current_page=1):
     files_list = []
     errors_list = []
-    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{str(max_level + 1)}&sort=level,ancestors.id&page={str(current_page)}&per_page=25{polite}", safe=':/')
+    request_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=level:<{str(max_level + 1)}&sort=level,ancestors.id&page={str(current_page)}&per_page=50{polite}", safe=':/')
     request_url
     response_json = requests.get(request_url).json()
     searchconcepts = response_json['results']
