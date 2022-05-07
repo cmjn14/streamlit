@@ -154,10 +154,10 @@ def retrieve_concepts(max_level=0, current_page=1):
     for concept in searchconcepts:
         ancestors_list = []
         for ancestor in concept['ancestors']:
-            ancestors_list.append(f"[[{ancestor['display_name'].replace("/","-")}]]")
+            ancestors_list.append(f"[[{ancestor['display_name'].replace('/','-')}]]")
         parents_str = "parent:: " + ", ".join(ancestors_list) if len(ancestors_list) > 0 else  ""
         file_lines = ["---", "tags:", f"- level/{concept['level']}","---","",f"# {concept['display_name']}","",parents_str,"","#### Description",f"{concept['description']}"]
-        file_name = concept['display_name'].replace("/","-") + ".md"
+        file_name = concept['display_name'].replace('/','-') + ".md"
         file_content = "\r\n".join(file_lines)
 
         md_file = make_md_file(file_name,file_content)
