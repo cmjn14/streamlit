@@ -162,8 +162,8 @@ def get_kids(ancestor_id, cursor="*",kids_list=[]):
 
 
 #test get_kids()
-st.write(get_kids("https://openalex.org/C39432304"))
-st.stop()
+#st.write(get_kids("https://openalex.org/C39432304"))
+#st.stop()
 
 def retrieve_concepts(max_level=0, current_page=1):
     files_list = []
@@ -224,19 +224,20 @@ def make_concepts_zip(max_level=0):
 
     st.write("All files collected.")
 
-    zip_file = make_zip('concepts.zip', files_full_list)
-    if zip_file == False:
-        st.error("The zip file could not be created.")
-        return False
-    else:
-        st.success("Zip file created.")
-        with open("concepts.zip", "rb") as final_zip:
-            st.download_button(
-                label="Download zipped files",
-                data=final_zip,
-                file_name='concepts.zip',
-                mime='application/zip',
-            )
+    if st.button('Make Zip'):
+        zip_file = make_zip('concepts.zip', files_full_list)
+        if zip_file == False:
+            st.error("The zip file could not be created.")
+            return False
+        else:
+            st.success("Zip file created.")
+            with open("concepts.zip", "rb") as final_zip:
+                st.download_button(
+                    label="Download zipped files",
+                    data=final_zip,
+                    file_name='concepts.zip',
+                    mime='application/zip',
+                )
 
 if st.button('Get concepts'):
     make_concepts_zip(2)
