@@ -152,13 +152,11 @@ def get_kids(ancestor_id, cursor="*",kids_list=[]):
     else:
         kids_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=ancestors.id:{ancestor_id}&per_page=200&cursor={cursor}{polite}", safe=':/')
         kids_json = requests.get(kids_url).json()
+        st.write(f"{kids_json['meta']['count']} results")
         next_cursor = kids_json['meta']['next_cursor'] 
-        st.write(kids_json['meta']['count'])
-        st.write(f'cursor: {next_cursor}')
         if 'results' in kids_json:
             for result in kids_json['results']:
                 kids_list.append(result['id'])
-            st.write(len(kids_list))
             return get_kids(ancestor_id, next_cursor, kids_list)
         else:
             st.write("done, nothing more")
@@ -166,8 +164,7 @@ def get_kids(ancestor_id, cursor="*",kids_list=[]):
 
 
 #test get_kids()
-kids = get_kids("C39432304")
-st.write(f'result: {kids}')
+st.write(get_kids("C39432304"))
 st.stop()
 
 def retrieve_concepts(max_level=0, current_page=1):
