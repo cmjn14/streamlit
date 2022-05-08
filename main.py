@@ -146,7 +146,8 @@ def make_md_file(md_name,md_content):
         return False
 
 def get_kids(ancestor_id, cursor="*",kids_list=[]):
-    if cursor == None:                                  # means last cursor was reached
+    if cursor == None:  
+        st.write("done")                                # means last cursor was reached
         return kids_list
     else:
         kids_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=ancestors.id:{ancestor_id}&per_page=200&cursor={cursor}{polite}", safe=':/')
@@ -160,9 +161,8 @@ def get_kids(ancestor_id, cursor="*",kids_list=[]):
             st.write(len(kids_list))
             get_kids(ancestor_id, next_cursor, kids_list)
         else:
+            st.write("done, nothing more")
             return kids_list
-
-
 
 
 #test get_kids()
