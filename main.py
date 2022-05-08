@@ -166,7 +166,8 @@ def get_kids(ancestor_id, cursor="*",kids_list=[]):
 
 
 #test get_kids()
-st.write(f'result: {get_kids("C39432304")}')
+kids = get_kids("C39432304")
+st.write(f'result: {kids}')
 st.stop()
 
 def retrieve_concepts(max_level=0, current_page=1):
