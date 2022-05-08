@@ -220,7 +220,7 @@ def make_concepts_zip(max_level=0):
             )
 
 if st.button('Get concepts'):
-    make_concepts_zip(1)
+    make_concepts_zip(2)
 
 
 st.stop()
