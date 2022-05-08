@@ -154,7 +154,7 @@ def get_kids(ancestor_id, cursor="*",kids_list=[]):
         kids_json = requests.get(kids_url).json()
         next_cursor = kids_json['meta']['next_cursor'] 
         st.write(kids_json['meta']['count'])
-        st.write(next_cursor)
+        st.write(f'cursor: {next_cursor}')
         if 'results' in kids_json:
             for result in kids_json['results']:
                 kids_list.append(result['id'])
