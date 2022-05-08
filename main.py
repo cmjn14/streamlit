@@ -164,7 +164,7 @@ def get_kids(ancestor_id, cursor="*",kids_list=[]):
 
 
 #test get_kids()
-st.write(get_kids("C39432304"))
+st.write(get_kids("https://openalex.org/C39432304"))
 st.stop()
 
 def retrieve_concepts(max_level=0, current_page=1):
