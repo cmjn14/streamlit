@@ -159,7 +159,7 @@ def get_kids(ancestor_id, cursor="*",kids_list=[]):
             for result in kids_json['results']:
                 kids_list.append(result['id'])
             st.write(len(kids_list))
-            get_kids(ancestor_id, next_cursor, kids_list)
+            return get_kids(ancestor_id, next_cursor, kids_list)
         else:
             st.write("done, nothing more")
             return None
