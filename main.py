@@ -144,7 +144,21 @@ def make_md_file(md_name,md_content):
         logging.error(traceback.format_exc())
         return False
 
-branches = []
+def get_kids(ancestor_id):
+    nextgen_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=ancestors.id:{ancestor_id}&per_page=200{polite}", safe=':/')
+    nextgen_json = requests.get(nextgen_url).json()
+    nextgen_list = []
+    if 'results' in response_json:
+        for result in results:
+            nextgen_list.append(result['id'])
+        return nextgen_list
+    else:
+        return False
+
+
+#test get_kids()
+st.write(get_kids("C39432304"))
+st.stop()
 
 def retrieve_concepts(max_level=0, current_page=1):
     files_list = []
