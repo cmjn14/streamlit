@@ -150,7 +150,7 @@ def get_kids(ancestor_id, cursor="*",kids_list=[]):
         st.write(f"done with {len(kids_list)} results.")
         return kids_list
     else:
-        kids_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=ancestors.id:{ancestor_id}&per_page=200&cursor={cursor}{polite}", safe=':/')
+        kids_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=ancestors.id:{ancestor_id}&per_page=200&level:1&cursor={cursor}{polite}", safe=':/')
         kids_json = requests.get(kids_url).json()
         next_cursor = kids_json['meta']['next_cursor'] 
         if 'results' in kids_json:
