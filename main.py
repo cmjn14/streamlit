@@ -148,7 +148,7 @@ def get_kids(ancestor_id):
     nextgen_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=ancestors.id:{ancestor_id}&per_page=200{polite}", safe=':/')
     nextgen_json = requests.get(nextgen_url).json()
     nextgen_list = []
-    st.write(nextgen_json.meta.count)
+    st.write(nextgen_json['meta']['count'])
     if 'results' in nextgen_json:
         for result in nextgen_json['results']:
             nextgen_list.append(result['id'])
