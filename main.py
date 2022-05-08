@@ -147,20 +147,18 @@ def make_md_file(md_name,md_content):
 
 def get_kids(ancestor_id, cursor="*",kids_list=[]):
     if cursor == None:  
-        st.write("done")                                # means last cursor was reached
+        st.write(f"done with {len(kids_list)} results.")
         return kids_list
     else:
         kids_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=ancestors.id:{ancestor_id}&per_page=200&cursor={cursor}{polite}", safe=':/')
         kids_json = requests.get(kids_url).json()
-        st.write(f"{kids_json['meta']['count']} results")
         next_cursor = kids_json['meta']['next_cursor'] 
         if 'results' in kids_json:
             for result in kids_json['results']:
                 kids_list.append(result['id'])
             return get_kids(ancestor_id, next_cursor, kids_list)
         else:
-            st.write("done, nothing more")
-            return None
+            return kids_list
 
 
 #test get_kids()
