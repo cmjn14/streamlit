@@ -15,6 +15,7 @@ import urllib as urllib
 import traceback
 import logging
 import os
+import json
 
 import requests as requests
 
@@ -144,18 +145,19 @@ def make_md_file(md_name,md_content):
         logging.error(traceback.format_exc())
         return False
 
-def get_kids(ancestor_id):
-    while True:
-        nextgen_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=ancestors.id:{ancestor_id}&per_page=200{polite}", safe=':/')
-        nextgen_json = requests.get(nextgen_url).json()
-        nextgen_list = []
-        st.write(nextgen_json['meta']['count'])
-        if 'results' in nextgen_json:
-            for result in nextgen_json['results']:
-                nextgen_list.append(result['id'])
-            return nextgen_list
-        else:
-            break;
+def get_kids(ancestor_id, cursor="*",kids_list=[]):
+        kids_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=ancestors.id:{ancestor_id}&per_page=200&cursor={cursor}{polite}", safe=':/')
+        kids_json = json.loads(requests.get(kids_url).json())
+        next_cursor = kids_json['meta']['next_cursor'] 
+        st.write(kids_json['meta']['count'])
+        st.write(next_cursor)
+        if 'results' in kids_json and kids_json['meta']['next_cursor'] != None:
+            for result in kids_json['results']:
+                kids_list.append(result['id'])
+            get_kids(ancestor_id, next_cursor, kids_list)
+        else:                                       # means last cursor was reached
+            return kids_list
+
 
 
 #test get_kids()
