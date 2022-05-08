@@ -148,6 +148,7 @@ def make_md_file(md_name,md_content):
 def get_kids(ancestor_id, cursor="*",kids_list=[]):
         kids_url = urllib.parse.quote(f"https://api.openalex.org/concepts?filter=ancestors.id:{ancestor_id}&per_page=200&cursor={cursor}{polite}", safe=':/')
         kids_json = requests.get(kids_url).json()
+        st.write(kids_json)
         next_cursor = kids_json['meta']['next_cursor'] 
         st.write(kids_json['meta']['count'])
         st.write(next_cursor)
