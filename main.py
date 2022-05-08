@@ -146,6 +146,7 @@ def make_md_file(md_name,md_content):
         logging.error(traceback.format_exc())
         return False
 
+branches = []
 
 def retrieve_concepts(max_level=0, current_page=1):
     files_list = []
@@ -164,7 +165,8 @@ def retrieve_concepts(max_level=0, current_page=1):
     for concept in searchconcepts:
         ancestors_list = []
         for ancestor in concept['ancestors']:
-            ancestors_list.append(f"[[{ancestor['display_name'].replace('/','-')}]]")
+            if ancestor['level'] == concept['level'] - 1:       # do not link directly to ancestors that are higher in hierarchy, for clarity of the graph view
+                ancestors_list.append(f"[[{ancestor['display_name'].replace('/','-')}]]")
         parents_str = "parent:: " + ", ".join(ancestors_list) if len(ancestors_list) > 0 else  ""
         file_lines = ["---", "tags:", f"- level/{concept['level']}","---","",f"# {concept['display_name']}","",parents_str,"","#### Description",f"{concept['description']}"]
         file_name = concept['display_name'].replace('/','-') + ".md"
@@ -179,21 +181,6 @@ def retrieve_concepts(max_level=0, current_page=1):
     if len(errors_list) > 0 :
         st.error(f"The following files could not be created: {', '.join(errors_list)}")
     
-    # zip_file = make_zip('concepts.zip', files_list)
-
-    # if zip_file == False:
-    #     st.error("The zip file could not be created.")
-    #     return False
-    # else:
-    #     st.success("Zip file created.")
-    #     with open("concepts.zip", "rb") as final_zip:
-    #         st.download_button(
-    #             label="Download zipped files",
-    #             data=final_zip,
-    #             file_name='concepts.zip',
-    #             mime='application/zip',
-    #         )
-    #     return True
     nb_files_created = len(files_list)
     st.write(f"{nb_files_created} files created.")
     return files_list
@@ -234,7 +221,8 @@ def make_concepts_zip(max_level=0):
                 mime='application/zip',
             )
 
-# make_concepts_zip(2)
+if st.button('Get concepts'):
+    make_concepts_zip(1)
 
 
 st.stop()
