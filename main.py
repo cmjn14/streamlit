@@ -162,7 +162,7 @@ def get_kids(ancestor_id, cursor="*",kids_list=[]):
             get_kids(ancestor_id, next_cursor, kids_list)
         else:
             st.write("done, nothing more")
-            return kids_list
+            return None
 
 
 #test get_kids()
